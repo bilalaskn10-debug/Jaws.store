@@ -3,43 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAWS.STORE | Pride of Hooligans</title>
+    <title>JAWS STORE</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background-color: #050505; color: #fff; font-family: 'Inter', sans-serif; padding: 20px 15px; }
-        .wrapper { width: 100%; max-width: 450px; margin: 0 auto; text-align: center; }
+        body { background-color: #000; color: #fff; font-family: 'Inter', sans-serif; padding: 20px 10px; }
+        .wrapper { width: 100%; max-width: 400px; margin: 0 auto; text-align: center; }
         
-        .profile h1 { font-weight: 900; font-size: 30px; letter-spacing: -1.5px; text-transform: uppercase; margin-bottom: 5px; }
-        .profile p { color: #888; font-size: 13px; margin-bottom: 30px; letter-spacing: 1px; }
+        /* Header */
+        .profile h1 { font-weight: 900; font-size: 28px; margin-bottom: 5px; color: #ff0000; }
+        .profile p { color: #888; font-size: 12px; margin-bottom: 25px; }
 
         /* Grid Produk */
-        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
-        .card { 
-            background: #111; border: 1px solid #222; border-radius: 18px; 
-            padding: 12px; position: relative; overflow: hidden;
-            display: flex; flex-direction: column; justify-content: space-between;
-        }
+        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .card { background: #111; border: 1px solid #222; border-radius: 15px; padding: 10px; text-align: center; }
         
-        .badge {
-            position: absolute; top: 10px; left: 10px; background: #ff0000;
-            color: #fff; font-size: 9px; font-weight: 800; padding: 4px 8px;
-            border-radius: 5px; z-index: 2; text-transform: uppercase;
+        /* Gambar Produk */
+        .card img { 
+            width: 100%; aspect-ratio: 1/1; object-fit: cover; 
+            border-radius: 10px; margin-bottom: 10px; background: #222; 
         }
 
-        .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 12px; margin-bottom: 12px; }
-        .price-tag { font-size: 12px; color: #ff0000; font-weight: 700; margin-bottom: 10px; display: block; }
+        .price { color: #ff0000; font-weight: bold; font-size: 13px; margin-bottom: 10px; display: block; }
 
+        /* Buttons */
         .btn-buy { 
-            background: #ff0000; color: #fff; border: none; width: 100%; padding: 12px; 
-            border-radius: 10px; font-weight: 800; font-size: 11px; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2); transition: 0.3s;
+            background: #ff0000; color: #fff; border: none; width: 100%; 
+            padding: 10px; border-radius: 8px; font-weight: 800; font-size: 11px; cursor: pointer; 
         }
-        .btn-buy:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 0, 0, 0.4); }
-
         .btn-full { 
-            display: flex; align-items: center; justify-content: center; padding: 16px; 
-            border-radius: 15px; text-decoration: none; font-weight: 700; font-size: 14px; 
-            margin-bottom: 12px; color: #fff; transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; padding: 15px; 
+            border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 14px; 
+            margin-bottom: 10px; color: #fff; 
         }
-        .btn-whatsapp { background: #25d3
+        .btn-wa { background: #25d366; }
+        .btn-ig { background: #1a1a1a; border: 1px solid #333; }
+
+        /* Modal */
+        .modal { 
+            display: none; position: fixed; z-index: 999; left: 0; top: 0; 
+            width: 100%; height: 100%; background: rgba(0,0,0,0.9); 
+            align-items: center; justify-content: center; 
+        }
+        .modal-content { background: #1a1a1a; padding: 20px; border-radius: 20px; width: 85%; border: 1px solid #333; }
+        .rek-box { background: #000; padding: 15px; border-radius: 10px; margin: 15px 0; border: 1px dashed #444; }
+        .btn-copy { background: #333; color: #fff; border: none; padding: 5px 10px; border-radius: 5px; font-size: 10px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <div class="profile">
+            <h1>JAWS.STORE</h1>
+            <p>PRIDE OF HOOLIGANS</p>
+        </div>
+
+        <div class="product-grid">
+            <div class="card">
+                <img src="flare.jpeg" alt="Flare">
+                <p style="font-size: 12px; font-weight: bold;">FLARE SINYAL</p>
+                <span class="price">Rp 150.000</span>
+                <button class="btn-buy" onclick="order('Flare Sinyal', '150.000')">BELI</button>
+            </div>
+
+            <div class="card">
+                <img src="adidas.jpeg" alt="Adidas">
+                <p style="font-size: 12px; font-weight: bold;">ADIDAS MERCH</p>
+                <span class="price">Rp 100.000</span>
+                <button class="btn-buy" onclick="order('Adidas Merch', '100.000')">BELI</button>
+            </div>
+        </div>
+
+        <a href="https://wa.me/6285893462034" class="btn-full btn-wa">CHAT ADMIN</a>
+        <a href="https://instagram.com/jawsstore" class="btn-full btn-ig">INSTAGRAM</a>
+    </div>
+
+    <div id="mOrder" class="modal">
+        <div class="modal-content">
+            <h2 id="mNama" style="color: #ff0000;"></h2>
+            <div class="rek-box">
+                <p style="font-size: 10px; color: #888;">TRANSFER BCA:</p>
+                <strong id="noRek">85893462034</strong>
+                <p>a/n JAWS STORE</p>
+                <button class="btn-copy" onclick="copyRek()">SALIN REKENING</button>
+            </div>
+            <a id="mWA" href="#" class="btn-full btn-wa">KONFIRMASI WA</a>
+            <p onclick="tutup()" style="font-size: 12px; color: #555; margin-top: 15px; cursor: pointer;">KEMBALI</p>
+        </div>
+    </div>
+
+    <script>
+        function order(nama, harga) {
+            document.getElementById('mNama').innerText = nama;
+            let pesan = "Halo Jaws Store, saya mau beli " + nama + ". Sudah lihat rekening.";
+            document.getElementById('mWA').href = "https://api.whatsapp.com/send?phone=6285893462034&text=" + encodeURIComponent(pesan);
+            document.getElementById('mOrder').style.display = 'flex';
+        }
+        function tutup() { document.getElementById('mOrder').style.display = 'none'; }
+        function copyRek() {
+            let rek = document.getElementById('noRek').innerText;
+            navigator.clipboard.writeText(rek);
+            alert("Berhasil Salin!");
+        }
+    </script>
+</body>
+</html>
+

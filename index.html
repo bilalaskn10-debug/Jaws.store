@@ -10,8 +10,7 @@
         body { background-color: #050505; color: #fff; font-family: 'Inter', sans-serif; padding: 20px 15px; }
         .wrapper { width: 100%; max-width: 450px; margin: 0 auto; text-align: center; }
         
-        /* Header & Logo */
-        .profile h1 { font-weight: 900; font-size: 30px; letter-spacing: -1.5px; color: #fff; text-transform: uppercase; margin-bottom: 5px; }
+        .profile h1 { font-weight: 900; font-size: 30px; letter-spacing: -1.5px; text-transform: uppercase; margin-bottom: 5px; }
         .profile p { color: #888; font-size: 13px; margin-bottom: 30px; letter-spacing: 1px; }
 
         /* Grid Produk */
@@ -19,10 +18,9 @@
         .card { 
             background: #111; border: 1px solid #222; border-radius: 18px; 
             padding: 12px; position: relative; overflow: hidden;
-            transition: 0.3s;
+            display: flex; flex-direction: column; justify-content: space-between;
         }
         
-        /* Fitur Badge Best Seller */
         .badge {
             position: absolute; top: 10px; left: 10px; background: #ff0000;
             color: #fff; font-size: 9px; font-weight: 800; padding: 4px 8px;
@@ -30,10 +28,8 @@
         }
 
         .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 12px; margin-bottom: 12px; }
-        
         .price-tag { font-size: 12px; color: #ff0000; font-weight: 700; margin-bottom: 10px; display: block; }
 
-        /* Button Glow Effect */
         .btn-buy { 
             background: #ff0000; color: #fff; border: none; width: 100%; padding: 12px; 
             border-radius: 10px; font-weight: 800; font-size: 11px; cursor: pointer;
@@ -41,123 +37,9 @@
         }
         .btn-buy:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 0, 0, 0.4); }
 
-        /* Full Buttons */
         .btn-full { 
             display: flex; align-items: center; justify-content: center; padding: 16px; 
             border-radius: 15px; text-decoration: none; font-weight: 700; font-size: 14px; 
             margin-bottom: 12px; color: #fff; transition: 0.3s;
         }
-        .btn-whatsapp { background: #25d366; }
-        .btn-testi { background: #1a1a1a; border: 1px solid #333; }
-
-        /* Modal Checkout Modern */
-        .modal { 
-            display: none; position: fixed; z-index: 9999; left: 0; top: 0; 
-            width: 100%; height: 100%; background: rgba(0,0,0,0.95); 
-            align-items: center; justify-content: center; 
-        }
-        .modal-content { 
-            background: #151515; padding: 30px; border-radius: 25px; 
-            width: 85%; max-width: 380px; text-align: center; border: 1px solid #333;
-        }
-        
-        .rekening-box { 
-            background: #000; padding: 20px; border-radius: 15px; 
-            margin: 20px 0; border: 1px solid #444; position: relative;
-        }
-        .rekening-box strong { font-size: 20px; color: #fff; display: block; margin: 5px 0; }
-        
-        /* Tombol Salin */
-        .btn-copy {
-            background: #333; color: #fff; border: none; padding: 6px 12px;
-            border-radius: 6px; font-size: 10px; cursor: pointer; margin-top: 8px;
-        }
-        .btn-copy:active { background: #555; }
-
-        .close-modal { color: #555; font-size: 13px; cursor: pointer; margin-top: 25px; display: block; }
-
-        footer { margin-top: 40px; color: #333; font-size: 10px; font-weight: 700; text-transform: uppercase; }
-    </style>
-</head>
-<body>
-
-    <div class="wrapper">
-        <div class="profile">
-            <h1>🦈 JAWS.STORE</h1>
-            <p>PRIDE OF HOOLIGANS MERCH</p>
-        </div>
-
-        <div class="product-grid">
-            <div class="card">
-                <div class="badge">Best Seller</div>
-                <img src="https://via.placeholder.com/400x400?text=FLARE" alt="Flare">
-                <p style="font-size: 14px; font-weight: 700;">FLARE SINYAL</p>
-                <span class="price-tag">Rp 150.000</span>
-                <button class="btn-buy" onclick="bukaCheckout('FLARE SINYAL', '150.000')">BELI SEKARANG</button>
-            </div>
-
-            <div class="card">
-                <img src="https://via.placeholder.com/400x400?text=MERCH" alt="Merch">
-                <p style="font-size: 14px; font-weight: 700;">HOODIE MERCH</p>
-                <span class="price-tag">Rp 100.000</span>
-                <button class="btn-buy" onclick="bukaCheckout('HOODIE MERCH', '100.000')">BELI SEKARANG</button>
-            </div>
-        </div>
-
-        <a href="https://api.whatsapp.com/send?phone=6285893462034" class="btn-full btn-whatsapp">
-            <span style="margin-right: 10px;">📞</span> CHAT ADMIN (ORDER)
-        </a>
-        <a href="https://instagram.com/jawsstore" class="btn-full btn-testi">
-            <span style="margin-right: 10px;">📸</span> BUKTI KIRIM & TESTI
-        </a>
-
-        <footer>&copy; 2025 JAWS.STORE | NO FACE NO NAME</footer>
-    </div>
-
-    <div id="modalOrder" class="modal">
-        <div class="modal-content">
-            <h2 id="orderNama" style="color:#ff0000; font-size: 22px;"></h2>
-            <p id="orderHarga" style="margin-top: 5px; color:#888;"></p>
-            
-            <div class="rekening-box">
-                <p style="font-size: 11px; color:#888;">TRANSFER KE BCA:</p>
-                <strong id="noRek">85893462034</strong>
-                <p style="font-size: 12px;">a/n JAWS STORE</p>
-                <button class="btn-copy" onclick="salinRekening()">SALIN NOMOR REKENING</button>
-            </div>
-            
-            <a id="orderWA" href="#" class="btn-full btn-whatsapp">KONFIRMASI PEMBAYARAN</a>
-            <span class="close-modal" onclick="tutupCheckout()">KEMBALI KE KATALOG</span>
-        </div>
-    </div>
-
-    <script>
-        function bukaCheckout(nama, harga) {
-            document.getElementById('orderNama').innerText = nama;
-            document.getElementById('orderHarga').innerText = "Total Tagihan: Rp " + harga;
-            
-            let pesan = "Halo Jaws Store, saya mau konfirmasi order " + nama + ". Saya sudah lihat detail rekening.";
-            let link = "https://api.whatsapp.com/send?phone=6285893462034&text=" + encodeURIComponent(pesan);
-            document.getElementById('orderWA').href = link;
-            
-            document.getElementById('modalOrder').style.display = 'flex';
-        }
-
-        function tutupCheckout() {
-            document.getElementById('modalOrder').style.display = 'none';
-        }
-
-        function salinRekening() {
-            let rek = document.getElementById('noRek').innerText;
-            navigator.clipboard.writeText(rek);
-            alert("Nomor Rekening Berhasil Disalin!");
-        }
-
-        window.onclick = function(e) {
-            if (e.target == document.getElementById('modalOrder')) tutupCheckout();
-        }
-    </script>
-
-</body>
-</html>
-
+        .btn-whatsapp { background: #25d3

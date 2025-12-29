@@ -6,34 +6,42 @@
     <title>Jaws.Store | Checkout System</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
+        /* CSS UNTUK TAMPILAN */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background-color: #000; color: #fff; font-family: 'Inter', sans-serif; padding: 20px 15px; }
         .wrapper { width: 100%; max-width: 450px; margin: 0 auto; text-align: center; }
-        
-        /* Header */
         .profile h1 { font-weight: 800; font-size: 26px; text-transform: uppercase; margin-bottom: 5px; }
         .profile p { color: #888; font-size: 13px; margin-bottom: 25px; }
 
-        /* Grid Produk */
+        /* GRID PRODUK */
         .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
         .card { background: #111; border: 1px solid #222; border-radius: 16px; padding: 10px; display: flex; flex-direction: column; }
         .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 10px; margin-bottom: 10px; }
         .price-tag { font-size: 11px; color: #ff0000; font-weight: bold; margin-bottom: 8px; }
 
-        /* Buttons */
-        .btn-buy { background: #ff0000; color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; }
-        .btn-full { display: flex; align-items: center; justify-content: center; padding: 16px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 14px; margin-bottom: 10px; color: #fff; }
+        /* TOMBOL UTAMA */
+        .btn-buy { background: #ff0000; color: #fff; border: none; padding: 10px; border-radius: 8px; font-weight: 700; font-size: 12px; cursor: pointer; outline: none; }
+        .btn-full { display: flex; align-items: center; justify-content: center; padding: 16px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 14px; margin-bottom: 10px; color: #fff; border: none; }
         .btn-whatsapp { background: #25d366; }
         .btn-secondary { background: #1a1a1a; border: 1px solid #333; }
 
-        /* Modal / Pop-up Checkout */
-        .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: #1a1a1a; padding: 25px; border-radius: 20px; width: 100%; max-width: 350px; text-align: center; border: 1px solid #333; }
-        .modal-content h3 { margin-bottom: 15px; color: #ff0000; }
+        /* MODAL / POP-UP CHECKOUT */
+        .modal { 
+            display: none; /* Awalnya sembunyi */
+            position: fixed; z-index: 9999; left: 0; top: 0; 
+            width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.85); 
+            align-items: center; justify-content: center; 
+        }
+        .modal-content { 
+            background: #1a1a1a; padding: 25px; border-radius: 20px; 
+            width: 90%; max-width: 350px; text-align: center; border: 1px solid #333; 
+        }
+        .modal-content h3 { margin-bottom: 10px; color: #ff0000; font-size: 20px; }
         .rekening-box { background: #000; padding: 15px; border-radius: 10px; margin: 15px 0; border: 1px dashed #444; }
-        .rekening-box p { font-size: 12px; color: #aaa; margin-bottom: 5px; }
-        .rekening-box strong { font-size: 18px; letter-spacing: 1px; color: #fff; }
-        .close-modal { color: #888; font-size: 12px; cursor: pointer; margin-top: 15px; display: block; }
+        .rekening-box p { font-size: 11px; color: #aaa; margin-bottom: 5px; }
+        .rekening-box strong { font-size: 18px; letter-spacing: 1px; color: #fff; display: block; }
+        .close-modal { color: #888; font-size: 13px; cursor: pointer; margin-top: 20px; display: block; text-decoration: underline; }
 
         footer { margin-top: 30px; color: #444; font-size: 11px; }
     </style>
@@ -51,14 +59,14 @@
                 <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=500&q=80" alt="Flare">
                 <p style="font-size: 13px; font-weight: 600;">Flare Sinyal</p>
                 <p class="price-tag">Rp 150.000</p>
-                <button class="btn-buy" onclick="openCheckout('Flare Sinyal', '150.000')">Beli Sekarang</button>
+                <button type="button" class="btn-buy" onclick="tampilkanCheckout('Flare Sinyal', '150.000')">Beli Sekarang</button>
             </div>
 
             <div class="card">
                 <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=500&q=80" alt="Merch">
                 <p style="font-size: 13px; font-weight: 600;">Merch Hooligan</p>
                 <p class="price-tag">Rp 100.000</p>
-                <button class="btn-buy" onclick="openCheckout('Merch Hooligan', '100.000')">Beli Sekarang</button>
+                <button type="button" class="btn-buy" onclick="tampilkanCheckout('Merch Hooligan', '100.000')">Beli Sekarang</button>
             </div>
         </div>
 
@@ -68,48 +76,52 @@
         <footer>&copy; 2025 JAWS.STORE</footer>
     </div>
 
-    <div id="checkoutModal" class="modal">
+    <div id="kotakBayar" class="modal">
         <div class="modal-content">
-            <h3 id="itemTitle">Detail Order</h3>
-            <p id="itemPrice" style="font-size: 14px; margin-bottom: 10px;"></p>
+            <h3 id="namaProduk">Detail Order</h3>
+            <p id="hargaProduk" style="font-size: 16px; margin-bottom: 10px; font-weight: bold;"></p>
             
             <div class="rekening-box">
-                <p>Transfer Ke BCA:</p>
-                <strong>1234567890</strong>
-                <p style="margin-top: 5px;">a/n Jaws Store</p>
+                <p>Transfer Ke Rekening BCA:</p>
+                <strong>85893462034</strong> <p style="margin-top: 5px;">a/n JAWS STORE</p>
             </div>
             
-            <p style="font-size: 11px; color: #888; margin-bottom: 15px;">Silakan transfer sesuai nominal, lalu klik tombol di bawah untuk kirim bukti bayar.</p>
+            <p style="font-size: 11px; color: #888; margin-bottom: 15px;">Silakan transfer ke nomor di atas, kemudian klik konfirmasi untuk kirim bukti transfer.</p>
             
-            <a id="waLink" href="#" class="btn-full btn-whatsapp" style="margin-bottom: 0;">Konfirmasi di WA</a>
-            <span class="close-modal" onclick="closeCheckout()">Kembali</span>
+            <a id="linkWA" href="#" class="btn-full btn-whatsapp" style="margin-bottom: 0;">Konfirmasi di WA</a>
+            <span class="close-modal" onclick="tutupCheckout()">Batal / Kembali</span>
         </div>
     </div>
 
     <script>
-        function openCheckout(name, price) {
-            document.getElementById('itemTitle').innerText = name;
-            document.getElementById('itemPrice').innerText = "Total: Rp " + price;
+        function tampilkanCheckout(nama, harga) {
+            // Update teks di dalam modal
+            document.getElementById('namaProduk').innerText = nama;
+            document.getElementById('hargaProduk').innerText = "Total: Rp " + harga;
             
-            // Set link WA otomatis
-            let message = "Halo Jaws.Store, saya mau konfirmasi order " + name + " seharga Rp " + price;
-            let waUrl = "https://api.whatsapp.com/send?phone=6285893462034&text=" + encodeURIComponent(message);
-            document.getElementById('waLink').href = waUrl;
+            // Buat link WA otomatis
+            let pesan = "Halo Jaws Store, saya sudah lihat detail order untuk " + nama + " seharga Rp " + harga + ". Saya ingin konfirmasi pembayaran.";
+            let urlWA = "https://api.whatsapp.com/send?phone=6285893462034&text=" + encodeURIComponent(pesan);
             
-            document.getElementById('checkoutModal').style.display = 'flex';
+            document.getElementById('linkWA').href = urlWA;
+            
+            // Munculkan modal
+            document.getElementById('kotakBayar').style.display = 'flex';
         }
 
-        function closeCheckout() {
-            document.getElementById('checkoutModal').style.display = 'none';
+        function tutupCheckout() {
+            // Sembunyikan modal
+            document.getElementById('kotakBayar').style.display = 'none';
         }
 
-        // Tutup modal jika klik di luar kotak
+        // Jika user klik di luar kotak hitam, modal tertutup
         window.onclick = function(event) {
-            let modal = document.getElementById('checkoutModal');
-            if (event.target == modal) { modal.style.display = "none"; }
+            let modal = document.getElementById('kotakBayar');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
         }
     </script>
 
 </body>
 </html>
-
